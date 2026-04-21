@@ -23,3 +23,17 @@ const extractNumber = (string = '') => {
 
   return Number(stringWithNumbers) ? Number(stringWithNumbers) : NaN;
 };
+
+const convertStringToMinutes = (time) => {
+  const [hours, minutes] = time.split(':').map(Number);
+  return hours * 60 + minutes;
+};
+
+const checkMeeting = (beginningWorkingDay, endWorkingDay, beginningMeet, durationMeetInMinutes) => {
+  const startDay = convertStringToMinutes(beginningWorkingDay);
+  const endDay = convertStringToMinutes(endWorkingDay);
+  const startMeet = convertStringToMinutes(beginningMeet);
+  const endMeet = startMeet + durationMeetInMinutes;
+
+  return startMeet >= startDay && endMeet <= endDay;
+};
