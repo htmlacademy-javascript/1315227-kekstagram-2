@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, createCommentMarkup } from './util.js';
 
 const COMMENTS_COUNT_STEP = 5;
 let currentPhotoComments = [];
@@ -17,24 +17,12 @@ const previewCommentAddField = preview.querySelector('.social__footer-text');
 const previewCommentTotalCount = preview.querySelector('.social__comment-total-count');
 const previewCloseButton = preview.querySelector('.big-picture__cancel');
 
-const createCommentMarkup = ({ avatar, message, name }) => `<li class="social__comment">
-  <img
-    class="social__picture"
-    src="${avatar}"
-    alt="${name}"
-    width="35" height="35">
-  <p class="social__text">${message}</p>
-</li>`;
-
 const renderCommentsStep = () => {
   const start = shownCommentsCount;
   const end = Math.min(start + COMMENTS_COUNT_STEP, currentPhotoComments.length);
 
   for (let i = start; i < end; i++) {
-    previewComments.insertAdjacentHTML(
-      'beforeend',
-      createCommentMarkup(currentPhotoComments[i])
-    );
+    previewComments.appendChild(createCommentMarkup(currentPhotoComments[i]));
   }
 
   shownCommentsCount = end;

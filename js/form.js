@@ -3,6 +3,7 @@ import { isEscapeKey } from './util.js';
 const COMMENTS_MAX_CHARACTERS = 140;
 const HASHTAGS_MAX_LENGTH = 5;
 const HASHTAGS_MAX_CHARACTERS = 20;
+const HASHTAGS_REGEXP = /^#[a-zа-яё0-9]+$/i;
 
 const ErrorMessage = {
   MAX_CHARACTERS_FOR_HASHTAGS: `максимальная длина одного хэштега ${HASHTAGS_MAX_CHARACTERS} символов`,
@@ -26,9 +27,8 @@ const pristine = new Pristine(form, {
 
 let lastErrorMessage = '';
 
-const regexp = /^#[a-zа-яё0-9]+$/i;
 const getHashtagsArray = (value) => value.trim().split(/\s+/).filter(Boolean);
-const isUniqueHashtags = (array) => array.every((item, index) => array.indexOf(item) === index);
+const isUniqueHashtags = (hashtags) => hashtags.every((item, index) => hashtags.indexOf(item) === index);
 const validateComments = (value) => value.length <= COMMENTS_MAX_CHARACTERS;
 
 const validateHashtags = (value) => {
@@ -66,7 +66,7 @@ const validateHashtags = (value) => {
       return false;
     }
 
-    if (!regexp.test(hashtag)) {
+    if (!HASHTAGS_REGEXP.test(hashtag)) {
       lastErrorMessage = ErrorMessage.INVALID_PATTERN_FOR_HASHTAGS;
       return false;
     }

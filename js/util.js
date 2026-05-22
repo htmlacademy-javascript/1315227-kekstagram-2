@@ -1,6 +1,11 @@
 const ALERT_SHOW_TIME = 5000;
 const DEFAULT_DELAY = 500;
 
+const SocialPictureSize = {
+  WIDTH: 35,
+  HEIGHT: 35
+};
+
 const errorFragment = document.querySelector('#data-error').content;
 const errorTemplate = errorFragment.querySelector('.data-error');
 const body = document.body;
@@ -66,6 +71,27 @@ const showPopupMessage = (type) => {
   currentPopup = popup;
 };
 
+const createCommentMarkup = ({ avatar, message, name }) => {
+  const comment = document.createElement('li');
+  const commentImage = document.createElement('img');
+  const commentText = document.createElement('p');
+
+  commentText.classList.add('social__text');
+  commentImage.classList.add('social__picture');
+  comment.classList.add('social__comment');
+
+  commentImage.src = avatar;
+  commentImage.alt = name;
+  commentImage.width = SocialPictureSize.WIDTH;
+  commentImage.height = SocialPictureSize.HEIGHT;
+  commentText.textContent = message;
+
+  comment.appendChild(commentImage);
+  comment.appendChild(commentText);
+
+  return comment;
+};
+
 const debounce = (callback, timeoutDelay = DEFAULT_DELAY) => {
   let timeoutId;
 
@@ -75,4 +101,4 @@ const debounce = (callback, timeoutDelay = DEFAULT_DELAY) => {
   };
 };
 
-export { isEscapeKey, showErrorAlert, showPopupMessage, debounce };
+export { isEscapeKey, showErrorAlert, showPopupMessage, createCommentMarkup, debounce };

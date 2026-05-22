@@ -177,7 +177,7 @@ const clearForm = () => {
   }
 };
 
-const openUpload = () => {
+const onUploadFileChange = () => {
   const currentFile = uploadFile.files[0];
   const currentFileName = currentFile.name.toLowerCase();
 
@@ -203,7 +203,7 @@ const openUpload = () => {
 };
 
 const setUpload = () => {
-  uploadFile.addEventListener('change', openUpload);
+  uploadFile.addEventListener('change', onUploadFileChange);
 
   uploadScaleControlSmaller.addEventListener('click', () => {
     onScaleControlClick(ScaleDirection.DECREASE);
